@@ -1,4 +1,4 @@
-import requests,json,re,os
+import requests,json,re
 from datetime import datetime, timedelta
 from flask import Flask, render_template
 import smtplib
@@ -44,8 +44,9 @@ app = Flask(__name__)
 
 SMTP_SERVER = 'smtp.qq.com'
 SMTP_PORT = 465
-SMTP_USERNAME = os.getenv('SMTP_USERNAME')
-SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')
+SMTP_USERNAME = '1317627853@qq.com'
+SMTP_PASSWORD = 'puwbjhafrgalgfeb'
+
 
 def send_email(subject, body, recipients):
     msg = MIMEMultipart()
@@ -61,7 +62,7 @@ def send_email(subject, body, recipients):
 # Flask 路由，用于发送邮件
 @app.route('/send-announcements')
 def send_announcements():
-    recipients_list = ['sanbei101@outlook.com', '3061232895@qq.com','sanbei@cau-ghr.tech','gzh031@foxmail.com']
+    recipients_list = ['sanbei101@outlook.com','sanbei@cau-ghr.tech']
     html_body = render_template('model.html', filtered_announcements=filtered_announcements)
     # print(html_body)
     subject = "新闻摘要"
