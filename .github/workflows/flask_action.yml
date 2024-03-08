@@ -1,6 +1,8 @@
 name: 发送信电报
-on: [push] # 或者使用 schedule 来定时执行
-
+on:
+  schedule:
+    # 每天北京时间6:00 (UTC时间22:00)
+    - cron: '0 22 * * *'
 jobs:
   build-and-run:
     runs-on: ubuntu-latest
@@ -20,11 +22,11 @@ jobs:
         
     - name: Start Flask App
       run: |
-        export FLASK_APP=main.py # 替换为你的Flask应用入口文件
+        export FLASK_APP=main.py
         flask run &
         
     - name: Wait for Flask to start
-      run: sleep 3 # 给Flask一些时间来启动
+      run: sleep 3
     
     - name: Trigger Flask Route
       run: |

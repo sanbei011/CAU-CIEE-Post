@@ -44,8 +44,8 @@ app = Flask(__name__)
 
 SMTP_SERVER = 'smtp.qq.com'
 SMTP_PORT = 465
-SMTP_USERNAME = '1317627853@qq.com'
-SMTP_PASSWORD = 'puwbjhafrgalgfeb'
+SMTP_USERNAME = ${{ secrets.SMTP_USERNAME }}
+SMTP_PASSWORD = ${{ secrets.SMTP_PASSWORD }}
 
 
 def send_email(subject, body, recipient):
@@ -64,7 +64,7 @@ def send_email(subject, body, recipient):
 def send_announcements():
     html_body = render_template('model.html', filtered_announcements=filtered_announcements)
     # print(html_body)
-    subject = "新闻摘要"
+    subject = "中国农业大学信电学院新闻推送"
     send_email(subject, html_body, 'sanbei101@outlook.com')
     return "邮件发送成功！"
 
