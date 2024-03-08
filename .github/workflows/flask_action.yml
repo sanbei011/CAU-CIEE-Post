@@ -1,0 +1,31 @@
+name: 发送信电报
+on: [push] # 或者使用 schedule 来定时执行
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install Flask requests
+        
+    - name: Start Flask App
+      run: |
+        export FLASK_APP=main.py # 替换为你的Flask应用入口文件
+        flask run &
+        
+    - name: Wait for Flask to start
+      run: sleep 3 # 给Flask一些时间来启动
+    
+    - name: Trigger Flask Route
+      run: |
+        curl http://localhost:5000/send-announcements
