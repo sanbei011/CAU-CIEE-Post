@@ -61,7 +61,7 @@ def send_email(subject, body, recipients):
 # Flask 路由，用于发送邮件
 @app.route('/send-announcements')
 def send_announcements():
-    recipients_list = ['sanbei101@outlook.com', '3061232895@qq.com']
+    recipients_list = ['sanbei101@outlook.com', '3061232895@qq.com','sanbei@cau-ghr.tech','gzh031@foxmail.com']
     html_body = render_template('model.html', filtered_announcements=filtered_announcements)
     # print(html_body)
     subject = "新闻摘要"
