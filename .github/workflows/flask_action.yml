@@ -6,6 +6,9 @@ on:
 jobs:
   build-and-run:
     runs-on: ubuntu-latest
+    env: 
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
 
     steps:
     - uses: actions/checkout@v2
@@ -26,8 +29,7 @@ jobs:
         flask run &
         
     - name: Wait for Flask to start
-      run: sleep 3
+      run: sleep 5 # 给Flask一些时间来启动
     
     - name: Trigger Flask Route
-      run: |
-        curl http://localhost:5000/send-announcements
+      run: curl http://localhost:5000/send-announcements

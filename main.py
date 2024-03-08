@@ -1,4 +1,4 @@
-import requests,json,re
+import requests,json,re,os
 from datetime import datetime, timedelta
 from flask import Flask, render_template
 import smtplib
@@ -44,8 +44,8 @@ app = Flask(__name__)
 
 SMTP_SERVER = 'smtp.qq.com'
 SMTP_PORT = 465
-SMTP_USERNAME = ${{ secrets.SMTP_USERNAME }}
-SMTP_PASSWORD = ${{ secrets.SMTP_PASSWORD }}
+SMTP_USERNAME = os.getenv('SMTP_USERNAME')
+SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')
 
 
 def send_email(subject, body, recipient):
