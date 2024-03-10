@@ -1,4 +1,4 @@
-import requests,json,re
+import requests,json,re,os
 from datetime import datetime, timedelta
 from flask import Flask, render_template
 import smtplib
@@ -44,29 +44,28 @@ app = Flask(__name__)
 
 SMTP_SERVER = 'smtp.qq.com'
 SMTP_PORT = 465
-SMTP_USERNAME = '1317627853@qq.com'
-SMTP_PASSWORD = 'puwbjhafrgalgfeb'
+SMTP_USERNAME = os.getenv('SMTP_USERNAME')
+SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')
 
 
-def send_email(subject, body, recipients):
+def send_email(subject, body, recipient):
     msg = MIMEMultipart()
     msg['From'] = SMTP_USERNAME
-    msg['To'] = ', '.join(recipients)  # 将收件人列表转换为字符串，用逗号分隔
+    msg['To'] = recipient
     msg['Subject'] = subject
     msg.attach(MIMEText(body, 'html'))
     server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT)
     server.login(SMTP_USERNAME, SMTP_PASSWORD)
-    server.sendmail(SMTP_USERNAME, recipients, msg.as_string())
+    server.sendmail(SMTP_USERNAME, [recipient], msg.as_string())
     server.quit()
 
 # Flask 路由，用于发送邮件
 @app.route('/send-announcements')
 def send_announcements():
-    recipients_list = ['sanbei101@outlook.com','sanbei@cau-ghr.tech']
     html_body = render_template('model.html', filtered_announcements=filtered_announcements)
     # print(html_body)
-    subject = "新闻摘要"
-    send_email(subject, html_body, recipients_list )
+    subject = "中国农业大学信电学院新闻推送"
+    send_email(subject, html_body, 'sanbei101@outlook.com')
     return "邮件发送成功！"
 
 if __name__ == '__main__':
