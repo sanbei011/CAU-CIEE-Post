@@ -21,8 +21,9 @@ for i, (day, year_month) in enumerate(time_matches):
     full_date = f"{year_month}-{day}"
     announcements[full_date] = title_matches[i]
 
-# today = datetime.now().date()
-today = datetime(2024, 3， 17)
+
+# today = datetime(2024, 3， 17)
+today = datetime.now().date()
 filtered_announcements = {}
 for full_date, title in announcements.items():
     date = datetime.strptime(full_date, "%Y-%m-%d")
@@ -68,7 +69,7 @@ def send_announcements():
     # print(html_body)
     subject = "中国农业大学信电学院新闻推送"
     send_email(subject, html_body, 'sanbei101@outlook.com')
-    return "邮件发送成功！"
+    return today.strftime("%Y-%m-%d")
 
 if __name__ == '__main__':
     app.run(debug=True)
