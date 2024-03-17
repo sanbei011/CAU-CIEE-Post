@@ -20,7 +20,9 @@ announcements = {}
 for i, (day, year_month) in enumerate(time_matches):
     full_date = f"{year_month}-{day}"
     announcements[full_date] = title_matches[i]
-today = datetime(2024, 3, 8)
+
+today = datetime.now().date()
+# today = datetime(2024, 3, 8)
 filtered_announcements = {}
 for full_date, title in announcements.items():
     date = datetime.strptime(full_date, "%Y-%m-%d")
