@@ -68,8 +68,8 @@ def send_email(subject, body, recipient):
 def send_announcements():
     html_body = render_template('model.html', filtered_announcements=filtered_announcements)
     # print(html_body)
-    subject = "中国农业大学信电学院新闻推送"
-    send_email(subject, html_body, recipients)
+    for recipient in recipients:
+        send_email(subject, html_body, recipient)
     return today.strftime("%Y-%m-%d")
 
 if __name__ == '__main__':
