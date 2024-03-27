@@ -49,6 +49,7 @@ SMTP_SERVER = 'smtp.qq.com'
 SMTP_PORT = 465
 SMTP_USERNAME = os.getenv('SMTP_USERNAME')
 SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')
+recipients = ['gzh031@foxmail.com', '1796987794@qq.com']
 
 
 def send_email(subject, body, recipient):
@@ -68,7 +69,7 @@ def send_announcements():
     html_body = render_template('model.html', filtered_announcements=filtered_announcements)
     # print(html_body)
     subject = "中国农业大学信电学院新闻推送"
-    send_email(subject, html_body, 'sanbei101@outlook.com')
+    send_email(subject, html_body, recipients)
     return today.strftime("%Y-%m-%d")
 
 if __name__ == '__main__':
