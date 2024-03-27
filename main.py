@@ -26,7 +26,7 @@ for i, (day, year_month) in enumerate(time_matches):
 today = datetime.now().date()
 filtered_announcements = {}
 for full_date, title in announcements.items():
-    date = datetime.strptime(full_date, "%Y-%m-%d")
+    date = datetime.strptime(full_date, "%Y-%m-%d").date()
     if date == today:
         key = "今天"
     elif date == today - timedelta(days=1):
