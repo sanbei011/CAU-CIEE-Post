@@ -17,20 +17,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.9'
+        python-version: '3.12'
     
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install Flask requests
+        pip install requests Jinja2
         
-    - name: Start Flask App
+    - name: Run post.py
       run: |
-        export FLASK_APP=main.py
-        flask run &
-        
-    - name: Wait for Flask to start
-      run: sleep 5 # 给Flask一些时间来启动
-    
-    - name: Trigger Flask Route
-      run: curl http://localhost:5000/send-announcements
+        python3 post.py
